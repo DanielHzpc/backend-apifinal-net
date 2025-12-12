@@ -1,0 +1,23 @@
+﻿using System.Security.Cryptography;
+using System.Text;
+
+namespace ApiEmpresa.Services
+{
+    public class PasswordService
+    {
+        // Convierte una contraseña a HASH usando SHA256
+        public string Hash(string password)
+        {
+            var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(bytes);
+        }
+
+        // Verifica si una contraseña es igual al hash guardado
+        public bool Verify(string password, string hash)
+        {
+            return Hash(password) == hash;
+        }
+
+    }
+}
